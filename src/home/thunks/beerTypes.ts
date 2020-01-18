@@ -11,11 +11,8 @@ function pickBeerTypes(stylesResponse: StylesResponse): Style[] {
 export function getBeerTypes(): ThunkResult<void> {
     return (dispatch) => {
         fetchStyles()
-            .then(stylesResponse => {
-                dispatch(setBeerTypes(pickBeerTypes(stylesResponse)))
-            })
-            .catch(() => {
-                dispatch(setError(true));
-            });
+            .then(stylesResponse => pickBeerTypes(stylesResponse))
+            .then(beerTypes => dispatch(setBeerTypes(beerTypes)))
+            .catch(() =>  dispatch(setError(true)));
     };
 }

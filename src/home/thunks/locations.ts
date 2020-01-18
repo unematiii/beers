@@ -29,14 +29,8 @@ function pickCountries(locations: LocationResponse): Countries {
 export function getCountries(): ThunkResult<void> {
     return (dispatch) => {
         fetchLocations()
-            .then(locationsResponse => {
-                return pickCountries(locationsResponse);
-            })
-            .then(countries => {
-                dispatch(setCountries(countries));
-            })
-            .catch(() => {
-                dispatch(setError(true));
-            });
+            .then(locationsResponse => pickCountries(locationsResponse))
+            .then(countries => dispatch(setCountries(countries)))
+            .catch(() => dispatch(setError(true)));
     };
 }
